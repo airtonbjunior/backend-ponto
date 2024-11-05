@@ -30,7 +30,7 @@ const Ponto = sequelize.define('Ponto', {
         localizacao: {
             type: DataTypes.STRING,
             allowNull: true
-        },
+        }
     }, 
     {
         timestamps: true
