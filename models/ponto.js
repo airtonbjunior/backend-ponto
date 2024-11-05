@@ -1,9 +1,8 @@
 const sequelize = require('../config/db');
 const { DataTypes } = require('sequelize');
 
-// Definir o modelo PONTO
 const Ponto = sequelize.define('Ponto', {
-        id: {
+        id_ponto: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
