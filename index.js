@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require ('cors');
 const PORT = 3000;
 
 const sequelize = require('./config/db');
@@ -15,8 +16,8 @@ sequelize.sync({ alter: true })
     console.log("Erro!");
 });
 
-
-//Usuario.create({ nome: "eeee", login: "e", email: "sdfg", senha: "sdfg", permissao: "usuario"});
+app.use(cors());
+app.use(express.json());
 
 
 // Rota que retorna TODOS os usuários da aplicação
@@ -42,18 +43,17 @@ app.get('/usuario/:id_usuario', async (req, res) => {
 
 // Rota que cria um usuário
 app.post('/usuario', async (req, res) => {
-    /* 
-    os parâmetros de criação de usuário devem ser enviados
-    no body da requisição
-
-    req.body contém os dados do body da requisição
-
-    parâmetros obrigatórios:
-    nome, email, senha, login, permissao('usuario' ou 'administrador')
-
-    O método create cria um recurso no bd
-    Usuario.create({}); passando como parâmetro o objeto com os valores
-    */
+    // Fazer isso em formato de desestruturação
+    // {nome, email ...} = req.body
+    const usuario = await Usuario.create({
+        nome: req.body.nome,
+        email: req.body.email,
+        login: req.body.login,
+        senha: req.body.senha,
+        permissao: req.body.permissao
+    });
+    //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
+    res.status(201).json(usuario);
 });
 
 
