@@ -16,28 +16,46 @@ sequelize.sync({ alter: true })
 });
 
 
+//Usuario.create({ nome: "eeee", login: "e", email: "sdfg", senha: "sdfg", permissao: "usuario"});
 
 
-
-
-
-// ROTAS
-app.get('/', (req, res) => {
-    res.send("Chamada ao recurso realizada com sucesso");
+// Rota que retorna TODOS os usuários da aplicação
+app.get('/usuarios', async (req, res) => {
+    // Como tratar erro (try/catch)?
+    
+    const usuarios = await Usuario.findAll();
+    res.json(usuarios);
 });
 
-// retornar todos os usuários
-app.get('/users', (req, res) => {
-    res.send("Aqui vou retornar todos os usuários do sistema")
+
+// Rota que busca um usuário específico 
+app.get('/usuario/:id_usuario', async (req, res) => {
+    const usuario = await Usuario.findAll({
+        where: {
+          id_usuario: req.params.id_usuario
+        },
+    });
+
+    res.json(usuario);
 });
 
-app.get('/user/:id', (req, res) => {
-    res.send(req.params.id)
+
+// Rota que cria um usuário
+app.post('/usuario', async (req, res) => {
+    /* 
+    os parâmetros de criação de usuário devem ser enviados
+    no body da requisição
+
+    req.body contém os dados do body da requisição
+
+    parâmetros obrigatórios:
+    nome, email, senha, login, permissao('usuario' ou 'administrador')
+
+    O método create cria um recurso no bd
+    Usuario.create({}); passando como parâmetro o objeto com os valores
+    */
 });
 
-app.post('/rotapost', (req, res) => {
-    res.send("Chamada ao recurso usando o post realizada com sucesso");
-});
 
 
 app.listen(PORT, () => {
