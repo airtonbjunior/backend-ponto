@@ -24,7 +24,7 @@ const Ponto = sequelize.define('Ponto', {
             allowNull: true
         },
         dataHora: {
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
             allowNull: false
         },
         localizacao: {
