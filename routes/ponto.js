@@ -35,6 +35,30 @@ router.post('/ponto', async (req, res) => {
 });
 
 
+// Edita um ponto específico (id_ponto)
+router.put('/ponto/:id_ponto', async (req, res) => {
+
+    const ponto = await Ponto.findByPk(req.params.id_ponto);
+
+    const pontoAtualizado = await ponto.update({
+        tipo: req.body.tipo,
+        dataHora: req.body.dataHora
+    });
+
+    res.json(pontoAtualizado);
+});
+
+
+// Rota que deleta um ponto específico (id_ponto)
+router.delete('/ponto/:id_ponto', async (req, res) => {
+
+    const ponto = await Ponto.findByPk(req.params.id_ponto);
+
+    // e se der erro no destroy() ?
+    ponto.destroy();
+
+    res.send(`Ponto com id ${req.params.id_ponto} deletado com sucesso`);
+});
 
 
 module.exports = router;
