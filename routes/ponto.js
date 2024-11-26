@@ -28,7 +28,8 @@ router.post('/ponto', async (req, res) => {
 
     const ponto = await Ponto.create({
         tipo: req.body.tipo,
-        dataHora: req.body.dataHora
+        dataHora: req.body.dataHora,
+        id_usuario: req.body.id_usuario
     });
 
     res.json(ponto);
@@ -60,5 +61,11 @@ router.delete('/ponto/:id_ponto', async (req, res) => {
     res.send(`Ponto com id ${req.params.id_ponto} deletado com sucesso`);
 });
 
+
+
+// Rota que retorna todos os pontos vinculados ao usuário id_usuario
+router.get('/pontos/usuario/:id_usuario', async (req, res) => {
+
+});
 
 module.exports = router;

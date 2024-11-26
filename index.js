@@ -18,6 +18,15 @@ sequelize.sync({ alter: true })
     console.log("Erro!");
 });
 
+Usuario.hasMany(Ponto, {
+    foreignKey: "id_usuario"
+});
+
+Ponto.belongsTo(Usuario, {
+    foreignKey: "id_usuario"
+});
+
+
 app.use(cors());
 app.use(express.json());
 app.use('/', usuarioRotas);
