@@ -56,6 +56,37 @@ app.post('/usuario', async (req, res) => {
     res.status(201).json(usuario);
 });
 
+// Rota para deletar um usuário específico (id)
+app.delete('/usuario/:id_usuario', async (req, res) => {
+    const id_usuario = req.params.id_usuario;
+
+    const usuario = await Usuario.findByPk(id_usuario);
+
+    if(!usuario) {
+       // retornar um erro com status adequado
+       return res.send("Erro ao deletar usuário"); 
+    }
+
+    await usuario.destroy();
+    res.send("Usuário deletado com sucesso");
+});
+
+
+// Editar atributos do usuário id
+app.put('/usuario/:id_usuario', async (req, res) => {
+
+    const id_usuario = req.params.id_usuario;
+    const { nome, email, login, senha, permissao } = req.body;
+
+    const usuario = await Usuario.findByPk(id_usuario);
+
+    if(!usuario) {
+        return res.send("Erro ao editar usuário");
+    }
+
+    usuario.update({ nome, email, login, senha, permissao });
+    res.send("Usuário editado com sucesso");
+});
 
 
 app.listen(PORT, () => {
