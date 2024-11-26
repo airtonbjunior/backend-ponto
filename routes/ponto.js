@@ -1,14 +1,3 @@
-/*
-    TO-DO:
-    - Login: rota e tela
-        - Token JWT - armazenamento do token e envio em toda requisição
-    - Redirecionamento do usuário não logado para a tela de login
-    - Proteção das rotas - middleware
-    - Adequação dos métodos do frontend para chamar os endpoints
-    - Tratamento de erros nas rotas
-    - Adequar os status HTTP nas rotas
-*/
-
 const express = require('express');
 const router = express.Router();
 const Ponto = require('../models/ponto');
